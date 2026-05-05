@@ -1,0 +1,43 @@
+{
+    "Linear Regression": {
+        "train_model_r2_score": 0.9320764163183072,
+        "test_model_r2_score": 0.9002377363469336,
+        "train_model_mae": 13324.847307333763,
+        "test_model_mae": 16164.606586462738,
+        "best_params": {},
+        "best_model": "Linear Regression"
+    },
+    "Lasso": {
+        "train_model_r2_score": 0.9164298234248961,
+        "test_model_r2_score": 0.9297168386052044,
+        "train_model_mae": 14444.216677005508,
+        "test_model_mae": 13082.838282904439,
+        "best_params": {
+            "alpha": 901,
+            "max_iter": 100000
+        },
+        "best_model": "Lasso"
+    },
+    "Ridge": {
+        "train_model_r2_score": 0.91059492068261,
+        "test_model_r2_score": 0.9213049695096501,
+        "train_model_mae": 14608.937444909632,
+        "test_model_mae": 14318.759928627043,
+        "best_params": {
+            "alpha": 701,
+            "max_iter": 100000
+        },
+        "best_model": "Ridge"
+    },
+    "ElasticNet": {
+        "train_model_r2_score": 0.9097590331901843,
+        "test_model_r2_score": 0.9212382323368045,
+        "train_model_mae": 14660.989309931712,
+        "test_model_mae": 14309.533545483351,
+        "best_params": {
+            "alpha": 1,
+            "max_iter": 100000
+        },
+        "best_model": "ElasticNet"
+    }
+}
