@@ -1,5 +1,6 @@
 import os
 import sys
+import mlflow
 from dataclasses import dataclass
 from src.advanced_price_prediction.exception import CustomException
 from src.advanced_price_prediction.logger import logging
@@ -9,7 +10,11 @@ import json
 import numpy as np
 from sklearn.metrics import mean_absolute_error, r2_score
 from src.advanced_price_prediction.utils import save_object
-
+import dagshub
+dagshub.init(repo_owner='imsa57', repo_name='ML_Advanced_price_prediction', mlflow=True)
+# https://dagshub.com/imsa57/ML_Advanced_price_prediction.mlflow
+mlflow.set_tracking_uri(f"https://dagshub.com/imsa57/ML_Advanced_price_prediction.mlflow")
+mlflow.set_experiment("Advanced Price Prediction")
 
 
 @dataclass
@@ -70,13 +75,13 @@ class ModelTrainer:
         mae = mean_absolute_error(y_test,y_pred)
         test_r2_score = r2_score(y_test,y_pred)
         print(f"Best Model: {best_model}, Best Params: {best_params}, MAE: {mae}, R2 Score: {test_r2_score}")
-
-
+        with mlflow.start_run():
+            mlflow.sklearn.log_model(sk_model=best_model, name="best_model")
+            mlflow.log_params(best_params)
+            mlflow.log_metric('test_model_mae', mae)
+            mlflow.log_metric('test_model_r2_score', test_r2_score)
+            
         save_object(file_path=self.model_trainer_config.trained_model_file_path,obj=best_model)
-
         return mae,test_r2_score
-  
-
-        
       except Exception as e:
         raise CustomException(e,sys)
